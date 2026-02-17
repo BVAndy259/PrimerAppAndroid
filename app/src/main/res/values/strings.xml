@@ -1,0 +1,15 @@
+<resources>
+    <!--CREDENCIALES DE APLICATIVO-->
+    <string name="app_name">Gestion501</string>
+    <string name="developer">Andy Barreda</string>
+    <string name="desarrollo">Desarrollado por:</string>
+    <string name="version">Versión 1.0.0</string>
+    <!--Login-->
+    <string name="Titulo_login">Ingresar Sesión</string>
+    <string name="lbl_usuario">Usuario</string>
+    <string name="txt_usuario">Ingrese Usuario</string>
+    <string name="lbl_password">Contraseña</string>
+    <string name="txt_password">Ingrese Contraseña</string>
+    <string name="btn_ingresar">Ingresar</string>
+    <string name="lbl_crear_cuenta">¿No tienes cuenta?, Registrate</string>
+</resources>
