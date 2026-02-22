@@ -7,7 +7,7 @@ public class UsuarioManager {
     // Instancia única (patrón Singleton)
     private static UsuarioManager instancia;
 
-    // Mapa que guarda email → [nombre, contraseña]
+    // Mapa que guarda email
     private HashMap<String, String[]> usuarios = new HashMap<>();
 
     private UsuarioManager() {}
@@ -22,7 +22,7 @@ public class UsuarioManager {
     // Registrar un nuevo usuario
     public boolean registrar(String email, String nombre, String contrasena) {
         if (usuarios.containsKey(email)) {
-            return false; // el email ya existe
+            return false;
         }
         usuarios.put(email, new String[]{nombre, contrasena});
         return true;
@@ -33,9 +33,9 @@ public class UsuarioManager {
         if (usuarios.containsKey(email)) {
             String[] datos = usuarios.get(email);
             if (datos[1].equals(contrasena)) {
-                return datos[0]; // retorna el nombre del usuario
+                return datos[0];
             }
         }
-        return null; // credenciales incorrectas
+        return null;
     }
 }
