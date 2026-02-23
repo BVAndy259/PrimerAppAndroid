@@ -57,8 +57,8 @@ public class RegistroActivity extends AppCompatActivity {
         }
 
         // Validar longitud mínima de contraseña
-        if (password.length() < 6) {
-            Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
+        if (password.length() < 8) {
+            Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
             return;
         }
 

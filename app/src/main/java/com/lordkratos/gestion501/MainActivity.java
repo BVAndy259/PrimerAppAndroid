@@ -3,10 +3,12 @@ package com.lordkratos.gestion501;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Patterns;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private TextInputLayout textInputLayout2, textInputLayout3;
     private Button button;
     private TextView tvRegistro;
+    private int intentosRestantes = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +49,12 @@ public class MainActivity extends AppCompatActivity {
         String contrasena = textInputLayout3.getEditText().getText().toString().trim();
 
         // Validar Campos
-        if (usuario.isEmpty() || contrasena.isEmpty()) {
-            Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show();
+        if (!usuario.contains("@")) {
+            Toast.makeText(this, "Correo Invalido. El correo debe tener @.", Toast.LENGTH_SHORT).show();
+        }  else if (contrasena.length() < 8) {
+            Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres.", Toast.LENGTH_SHORT).show();
+        } else if (usuario.isEmpty() || contrasena.isEmpty()) {
+            Toast.makeText(this, "Por favor completa todos los campos.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -56,9 +63,8 @@ public class MainActivity extends AppCompatActivity {
         // Credenciales válidas
         if (nombre != null) {
             Toast.makeText(this, "¡Bienvenido, " + nombre + "!", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
-            textInputLayout3.getEditText().setText("");
+        } else  {
+            manejarIntentos();
         }
     }
 }
