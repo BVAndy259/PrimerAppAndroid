@@ -34,6 +34,7 @@ dependencies {
     implementation libs.material
     // Sirve para animaciones
     implementation 'com.airbnb.android:lottie:3.0.1'
+    implementation 'com.google.code.gson:gson:2.11.0'
     implementation libs.activity
     implementation libs.constraintlayout
     testImplementation libs.junit

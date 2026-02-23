@@ -1,81 +1,109 @@
-# Implementación de UsuarioManager: Estructura y Conceptos
+# Implementación de UsuarioManager con Persistencia de Datos
 
-### 1. Definición de Paquete e Importaciones
+### 1. Importaciones Críticas
 
 ```java
-package com.lordkratos.gestion501;
-import java.util.HashMap;
+import android.content.Context;
+import android.content.SharedPreferences;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 ```
 
-* **`package`**: Define el espacio de nombres (namespace) para organizar lógicamente las clases y evitar colisiones de nombres.
-* **`import`**: Incluye clases de la API estándar de Java.
-* **`HashMap`**: Estructura de datos basada en tablas hash que almacena pares clave-valor. Permite acceso y búsqueda en tiempo constante .
+* **`Context`**: Interfaz abstracta al entorno global de la aplicación. Otorga acceso a recursos, bases de datos y preferencias del sistema operativo.
+* **`SharedPreferences`**: Mecanismo de almacenamiento persistente nativo de Android basado en archivos XML ocultos. Guarda datos primitivos estructurados en pares clave-valor.
+* **`Gson`**: Biblioteca externa encargada de la serialización y deserialización. Convierte la estructura de datos Java (`HashMap`) a un formato de texto estándar (`JSON`) y viceversa.
+* **`TypeToken`**: Clase de la librería Gson empleada para forzar la retención de la información del tipo genérico (`HashMap<String, String[]>`) durante el tiempo de ejecución, eludiendo el proceso de *Type Erasure* (borrado de tipos) nativo del compilador de Java.
 
-### 2. Declaración de la Clase
-
-```java
-public class UsuarioManager {
-```
-
-* **`public`**: Modificador de acceso. La clase es visible y utilizable desde cualquier otro paquete del proyecto.
-* **`class`**: Palabra reservada que define la plantilla o plano para la creación de objetos.
-
-### 3. Variables de Estado y Estructura de Datos
+### 2. Constantes y Variables de Estado
 
 ```java
+private static final String PREFS_NAME = "UsuariosPrefs";
+private static final String KEY_USUARIOS = "usuarios_map";
 private static UsuarioManager instancia;
 private HashMap<String, String[]> usuarios = new HashMap<>();
+private final Gson gson = new Gson();
 ```
 
-* **`private`**: Restringe el acceso de las variables únicamente al interior de la clase (Encapsulamiento).
-* **`static`**: La variable `instancia` pertenece a la clase en sí, no a los objetos individuales creados a partir de ella. Comparte el mismo espacio de memoria en toda la ejecución.
-* **`HashMap<String, String[]>`**: Define un mapa donde la clave es un objeto `String` (email) y el valor es un arreglo unidimensional de tipo `String[]` (almacena nombre en índice 0 y contraseña en índice 1).
+* **`PREFS_NAME`**: Define el nombre físico del archivo XML en el almacenamiento interno del dispositivo donde operará `SharedPreferences`.
+* **`KEY_USUARIOS`**: Identificador único bajo el cual se indexará la cadena JSON completa dentro del archivo de preferencias.
+* **`gson`**: Objeto inmutable instanciado de una vez para gestionar todas las transformaciones JSON de la clase.
 
-### 4. Constructor Privado
-
-```java
-private UsuarioManager() {}
-```
-
-* **Constructor `private**`: Bloquea la capacidad de otras clases para crear instancias utilizando el operador `new UsuarioManager()`. Es el mecanismo fundamental para forzar el patrón Singleton.
-
-### 5. Instanciación Controlada (Patrón Singleton)
+### 3. Patrón Singleton con Sincronización
 
 ```java
-public static UsuarioManager getInstance() {
+public static synchronized UsuarioManager getInstance(Context context) {
     if (instancia == null) {
         instancia = new UsuarioManager();
+        instancia.cargarUsuarios(context);
     }
     return instancia;
 }
 ```
 
-* **`public static`**: Método accesible globalmente sin necesidad de instanciar la clase.
-* **Instanciación Perezosa (Lazy Initialization)**: Evalúa si `instancia` es `null`. Si lo es, invoca al constructor privado. Si no, retorna la referencia existente. Garantiza un único estado global para el mapa de `usuarios`.
+* **`synchronized`**: Modificador de control de concurrencia. Bloquea el hilo de ejecución para garantizar que múltiples hilos no evalúen la condición `instancia == null` simultáneamente. Previene la creación de múltiples instancias concurrentes (Thread-Safe).
+* **Inyección en cascada**: Al crearse la instancia única, invoca de inmediato `cargarUsuarios(context)` para popular la memoria RAM con los datos persistidos en almacenamiento.
 
-### 6. Método de Registro
+### 4. Deserialización y Carga de Datos
 
 ```java
-public boolean registrar(String email, String nombre, String contrasena) {
+private void cargarUsuarios(Context context) {
+    SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+    String json = prefs.getString(KEY_USUARIOS, null);
+
+    if (json != null) {
+        Type type = new TypeToken<HashMap<String, String[]>>() {}.getType();
+        usuarios = gson.fromJson(json, type);
+        if (usuarios == null) {
+            usuarios = new HashMap<>();
+        }
+    }
+}
+```
+
+* **`Context.MODE_PRIVATE`**: Nivel de seguridad que restringe la lectura y escritura del archivo de preferencias exclusivamente a la aplicación propietaria.
+* **`getString(KEY, default)`**: Recupera el valor asociado a la clave. Retorna `null` si el archivo está vacío o la clave no existe.
+* **`fromJson(String, Type)`**: Transforma la cadena JSON pura estructurándola de vuelta al `HashMap` original según las reglas establecidas por el `TypeToken`.
+
+### 5. Serialización y Guardado de Datos
+
+```java
+private void guardarUsuarios(Context context) {
+    SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = prefs.edit();
+
+    String json = gson.toJson(usuarios);
+    editor.putString(KEY_USUARIOS, json);
+    editor.apply();
+}
+```
+
+* **`SharedPreferences.Editor`**: Interfaz auxiliar requerida para modificar los datos del archivo de preferencias.
+* **`toJson(Object)`**: Lee la estructura actual en memoria del `HashMap` y produce un `String` plano formateado en JSON.
+* **`apply()`**: Escribe las transacciones del `Editor` en la memoria en disco de manera asíncrona. A diferencia de `commit()`, no bloquea el hilo principal y es óptimo para operaciones en segundo plano.
+
+### 6. Lógica de Registro Modificada
+
+```java
+public boolean registrar(String email, String nombre, String contrasena, Context context) {
     if (usuarios.containsKey(email)) {
         return false;
     }
     usuarios.put(email, new String[]{nombre, contrasena});
+    guardarUsuarios(context);
     return true;
 }
 ```
 
-* **`boolean`**: Tipo de retorno primitivo que indica el éxito (`true`) o fracaso (`false`) de la operación.
-* **`containsKey(Object key)`**: Método de `HashMap` que verifica la existencia de la clave (email) para evitar sobrescritura de cuentas (colisión).
-* **`new String[]{nombre, contrasena}`**: Creación e inicialización anónima en línea de un arreglo de tamaño fijo (2) para inyectarlo como valor asociado a la clave mediante el método `put()`.
+* **Alteración arquitectónica**: El método ahora exige una referencia al objeto `Context`.
+* **Persistencia en caliente**: Inmediatamente después de insertar una nueva clave en el `HashMap` (`put`), ejecuta `guardarUsuarios(context)` para forzar un volcado de la memoria RAM al almacenamiento físico.
 
-### 7. Método de Autenticación
+### 7. Lógica de Autenticación Mantenida
 
 ```java
 public String login(String email, String contrasena) {
     if (usuarios.containsKey(email)) {
         String[] datos = usuarios.get(email);
-        if (datos[1].equals(contrasena)) {
+        if (datos != null && datos[1].equals(contrasena)) {
             return datos[0];
         }
     }
@@ -83,6 +111,16 @@ public String login(String email, String contrasena) {
 }
 ```
 
-* **`get(Object key)`**: Recupera el valor (`String[]`) asociado al email ingresado.
-* **`equals(Object anObject)`**: Método de la clase `String` utilizado para evaluar la equivalencia estructural (contenido) de la cadena `contrasena` contra el índice `1` del arreglo almacenado. Evita el uso del operador `==`, el cual en Java evalúa igualdad de referencias en memoria para objetos.
-* **`return null`**: Ausencia de valor. Indica fallo en la autenticación por inexistencia de la clave o discrepancia en la contraseña.
+* **`datos != null`**: Mecanismo de seguridad adicional para prevenir excepciones `NullPointerException` en caso de corrupción de datos durante el volcado y reconstrucción por parte de Gson.
+
+### 8. Lógica de Destrucción de Datos
+
+```java
+public void limpiarUsuarios(Context context) {
+    usuarios.clear();
+    guardarUsuarios(context);
+}
+```
+
+* **`clear()`**: Operación nativa de la clase `Map` que elimina todas las asignaciones de clave-valor almacenadas en memoria.
+* **Sincronización de estado vacío**: Llama a `guardarUsuarios` para sobrescribir el archivo JSON persistente con una estructura vacía.

@@ -29,6 +29,6 @@ public class PrecargadoActivity extends AppCompatActivity {
                 startActivity(new Intent(PrecargadoActivity.this,MainActivity.class));
                 finish();
             }
-        }, 5000);
+        }, 3000);
     }
 }
