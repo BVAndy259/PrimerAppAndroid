@@ -1,6 +1,10 @@
 package com.lordkratos.gestion501;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +13,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class RegistroActivity extends AppCompatActivity {
+    private TextView lblLogin;
+    private Button btnRegistrar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +26,21 @@ public class RegistroActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        lblLogin = findViewById(R.id.lblIrLogin);
+        lblLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               startActivity(new Intent(RegistroActivity.this, MainActivity.class));
+            }
+        });
+
+        btnRegistrar = findViewById(R.id.btnRegistrar);
+            btnRegistrar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(RegistroActivity.this, DashboardActivity.class));
+                }
+            });
     }
 }

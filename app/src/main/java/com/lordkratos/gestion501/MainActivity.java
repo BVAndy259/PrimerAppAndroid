@@ -2,6 +2,7 @@ package com.lordkratos.gestion501;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,11 +17,13 @@ import com.google.android.material.textfield.TextInputLayout;
 public class MainActivity extends AppCompatActivity {
 
     // Atributos
-    private TextInputLayout textInputLayout2, textInputLayout3;
+    private TextInputLayout textInputLayout2;
+    private TextInputLayout textInputLayout3;
     private Button button;
     private TextView tvRegistro;
     private int intentosFallidos = 0;
     private final int MAX_INTENTOS = 3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,83 +31,75 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
+        textInputLayout2 = findViewById(R.id.textInputLayout2);
+        textInputLayout3 = findViewById(R.id.textInputLayout3);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Conectar vistas
-        textInputLayout2 = findViewById(R.id.textInputLayout2);
-        textInputLayout3 = findViewById(R.id.textInputLayout3);
-        button = findViewById(R.id.button);
-        tvRegistro = findViewById(R.id.textView5);
-
         // Listeners
-        button.setOnClickListener(v -> validarLogin());
-        tvRegistro.setOnClickListener(v ->
-                startActivity(new Intent(this, RegistroActivity1.class))
-        );
-    }
+        button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String usuario = textInputLayout2.getEditText().getText().toString().trim();
+                String contrasena = textInputLayout3.getEditText().getText().toString().trim();
 
-    // Método de validación
-    private void validarLogin() {
-        String usuario = textInputLayout2.getEditText().getText().toString().trim();
-        String contrasena = textInputLayout3.getEditText().getText().toString().trim();
+                if (usuario.isEmpty() || contrasena.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-        // Validaciones básicas
-        if (usuario.isEmpty() || contrasena.isEmpty()) {
-            Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
-            return;
-        }
+                if (!usuario.contains("@")) {
+                    Toast.makeText(MainActivity.this, "Correo inválido. El correo debe contener @", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-        if (!usuario.contains("@")) {
-            Toast.makeText(this, "El correo debe contener @", Toast.LENGTH_SHORT).show();
-            return;
-        }
+                if (contrasena.length() < 8) {
+                    Toast.makeText(MainActivity.this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-        if (contrasena.length() < 8) {
-            Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
-            return;
-        }
+                if (usuario.equals("admin@email.com") && contrasena.equals("admin123")) {
+                    intentosFallidos = 0;
+                    Toast.makeText(MainActivity.this, "¡Bienvenido, !", Toast.LENGTH_LONG).show();
 
-        // Intento de login
-        String nombre = UsuarioManager.getInstance(this).login(usuario, contrasena);
+                    startActivity(new Intent(MainActivity.this, RegistroActivity.class));
+                    finish();
+                    return;
+                }
 
-        if (nombre != null) {
-            intentosFallidos = 0;
-            Toast.makeText(this, "¡Bienvenido, " + nombre + "!", Toast.LENGTH_LONG).show();
+                intentosFallidos++;
+                int restantes = MAX_INTENTOS - intentosFallidos;
 
-            startActivity(new Intent(this, RegistroActivity.class));
-            finish();
-        } else {
-            // Fallo
-            intentosFallidos++;
-            mostrarAdvertenciaIntento();
-        }
-    }
+                if (intentosFallidos >= MAX_INTENTOS) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("Cuenta bloqueada")
+                            .setMessage("Has superado el límite de " + MAX_INTENTOS + " intentos.\nLa aplicación se cerrará.")
+                            .setCancelable(false)
+                            .setPositiveButton("Aceptar", (dialog, which) -> finishAffinity())
+                            .show();
 
-    // Método de Advertencia de Intentos Fallidos
-    private void mostrarAdvertenciaIntento() {
-        int restantes = MAX_INTENTOS - intentosFallidos;
+                    button.setEnabled(false);
+                } else {
+                    String mensaje = "Credenciales incorrectas.\n" +
+                            "Intento " + intentosFallidos + " de " + MAX_INTENTOS + ".\n" +
+                            "Te quedan " + restantes + " intento" + (restantes == 1 ? "" : "s") + ".";
 
-        if (intentosFallidos >= MAX_INTENTOS) {
-            // Bloqueo
-            new AlertDialog.Builder(this)
-                    .setTitle("Cuenta bloqueada")
-                    .setMessage("Has superado el límite de " + MAX_INTENTOS + " intentos.\nLa aplicación se cerrará.")
-                    .setCancelable(false)
-                    .setPositiveButton("Aceptar", (dialog, which) -> finishAffinity())
-                    .show();
+                    Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
-            button.setEnabled(false);
-        } else {
-            // Advertencia
-            String mensaje = "Credenciales incorrectas.\n" +
-                    "Intento " + intentosFallidos + " de " + MAX_INTENTOS + ".\n" +
-                    "Te quedan " + restantes + " intento" + (restantes == 1 ? "" : "s") + ".";
-
-            Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
-        }
+        tvRegistro = findViewById(R.id.textView5);
+        tvRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, RegistroActivity.class));
+            }
+        });
     }
 }
