@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@drawable/back_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegistroActivity">
@@ -48,6 +49,7 @@
             android:layout_marginTop="5sp">
 
             <EditText
+                android:id="@+id/etNombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15sp"
@@ -69,6 +71,7 @@
             android:layout_marginTop="5dp">
 
             <EditText
+                android:id="@+id/etApellido"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
@@ -90,11 +93,12 @@
             android:layout_marginTop="5sp">
 
             <EditText
+                android:id="@+id/etCorreo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15sp"
-                android:inputType="text"
-                android:hint="@string/txt_nombres"/>
+                android:inputType="textEmailAddress"
+                android:hint="@string/txt_correo"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -108,13 +112,15 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp">
+            android:layout_marginTop="5sp"
+            app:passwordToggleEnabled="true">
 
             <EditText
+                android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15sp"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:hint="@string/txt_password_registro"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,13 +135,14 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5sp">
-
+            android:layout_marginTop="5sp"
+            app:passwordToggleEnabled="true">
             <EditText
+                android:id="@+id/etConfirmarPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15sp"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:hint="@string/txt_confirmar_password"/>
             
             <Button

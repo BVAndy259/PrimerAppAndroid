@@ -1,105 +1,110 @@
 package com.lordkratos.gestion501;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
-
-    // Atributos
-    private TextInputLayout textInputLayout2;
-    private TextInputLayout textInputLayout3;
-    private Button button;
+    private Button btningresar;
     private TextView tvRegistro;
-    private int intentosFallidos = 0;
-    private final int MAX_INTENTOS = 3;
-
+    private EditText etcorreol, etpasswordl;
+    private FirebaseAuth firebaseAuth;
+    private ProgressDialog progressDialog;
+    private String correo = "", password = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-
-        textInputLayout2 = findViewById(R.id.textInputLayout2);
-        textInputLayout3 = findViewById(R.id.textInputLayout3);
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Listeners
-        button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String usuario = textInputLayout2.getEditText().getText().toString().trim();
-                String contrasena = textInputLayout3.getEditText().getText().toString().trim();
+        tvRegistro = findViewById(R.id.tvirregistro);
+        btningresar = findViewById(R.id.btningresar);
+        etcorreol = findViewById(R.id.etcorreol);
+        etpasswordl = findViewById(R.id.etpasswordl);
+        firebaseAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.setTitle("Espere por favor");
 
-                if (usuario.isEmpty() || contrasena.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (!usuario.contains("@")) {
-                    Toast.makeText(MainActivity.this, "Correo inválido. El correo debe contener @", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (contrasena.length() < 8) {
-                    Toast.makeText(MainActivity.this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (usuario.equals("admin@email.com") && contrasena.equals("admin123")) {
-                    intentosFallidos = 0;
-                    Toast.makeText(MainActivity.this, "¡Bienvenido, !", Toast.LENGTH_LONG).show();
-
-                    startActivity(new Intent(MainActivity.this, RegistroActivity.class));
-                    finish();
-                    return;
-                }
-
-                intentosFallidos++;
-                int restantes = MAX_INTENTOS - intentosFallidos;
-
-                if (intentosFallidos >= MAX_INTENTOS) {
-                    new AlertDialog.Builder(MainActivity.this)
-                            .setTitle("Cuenta bloqueada")
-                            .setMessage("Has superado el límite de " + MAX_INTENTOS + " intentos.\nLa aplicación se cerrará.")
-                            .setCancelable(false)
-                            .setPositiveButton("Aceptar", (dialog, which) -> finishAffinity())
-                            .show();
-
-                    button.setEnabled(false);
-                } else {
-                    String mensaje = "Credenciales incorrectas.\n" +
-                            "Intento " + intentosFallidos + " de " + MAX_INTENTOS + ".\n" +
-                            "Te quedan " + restantes + " intento" + (restantes == 1 ? "" : "s") + ".";
-
-                    Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-        tvRegistro = findViewById(R.id.textView5);
         tvRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, RegistroActivity.class));
             }
         });
+
+        btningresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validarDatos();
+            }
+        });
+    }
+
+    private void validarDatos() {
+        correo = etcorreol.getText().toString().trim();
+        password = etpasswordl.getText().toString().trim();
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+            Toast.makeText(this, "Ingrese correo válido", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Ingrese contraseña", Toast.LENGTH_SHORT).show();
+        } else {
+            logearUsuario();
+        }
+    }
+
+    private void logearUsuario() {
+        progressDialog.setMessage("Iniciando sesión...");
+        progressDialog.show();
+
+        firebaseAuth.signInWithEmailAndPassword(correo, password)
+                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            progressDialog.dismiss();
+                            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                            startActivity(new Intent(MainActivity.this, DashboardActivity.class));
+                            Toast.makeText(MainActivity.this, "Bienvenido " + firebaseUser.getEmail(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            progressDialog.dismiss();
+                            Toast.makeText(MainActivity.this, "Verifique si el correo o contraseña son correctos", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainActivity.this, "Ocurrió un problema", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
