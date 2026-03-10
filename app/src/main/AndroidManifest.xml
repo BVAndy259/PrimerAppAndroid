@@ -12,6 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gestion501">
         <activity
+            android:name=".tareas.TareasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".misDatos.MisDatosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".listaTareas.ListaTareasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".gastos.GastosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".favoritos.FavoritosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".empresa.EmpresaActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegistroActivity"
             android:exported="false" />
         <activity

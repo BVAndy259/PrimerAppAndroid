@@ -48,6 +48,10 @@ public class RegistroActivity extends AppCompatActivity {
 
         lblLogin = findViewById(R.id.lblIrLogin);
 
+        etnombre = findViewById(R.id.etNombre);
+        etapellido = findViewById(R.id.etApellido);
+        etcorreo = findViewById(R.id.etCorreo);
+        etpassword = findViewById(R.id.etPassword);
         etconfirpassword = findViewById(R.id.etConfirmarPassword);
         btnRegistrar = findViewById(R.id.btnRegistrar);
 
@@ -87,7 +91,7 @@ public class RegistroActivity extends AppCompatActivity {
             Toast.makeText(this, "Ingrese un correo válido", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(password) || password.length() < 8) {
             Toast.makeText(this, "Ingrese una contraseña de 8 caracteres como mínimo", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(confirpassword) || password.length() < 8) {
+        } else if (TextUtils.isEmpty(confirpassword) || confirpassword.length() < 8) {
             Toast.makeText(this, "Repita la contraseña para confirmar", Toast.LENGTH_SHORT).show();
         } else if (!password.equals(confirpassword)) {
             Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
@@ -98,7 +102,7 @@ public class RegistroActivity extends AppCompatActivity {
 
     private void registrar() {
         progressDialog.setMessage("Registrando Usuario");
-        progressDialog.dismiss();
+        progressDialog.show();
 
         firebaseAuth.createUserWithEmailAndPassword(correo, password)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -109,6 +113,7 @@ public class RegistroActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
                         Toast.makeText(RegistroActivity.this, "Ocurrió un problema, revisa los campos", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -116,7 +121,7 @@ public class RegistroActivity extends AppCompatActivity {
 
     private void guardarUsuario() {
         progressDialog.setMessage("Guardando Información...");
-        progressDialog.dismiss();
+        progressDialog.show();
 
         String uId = firebaseAuth.getUid();
         HashMap<String, String> datosusuario = new HashMap<>();
@@ -130,6 +135,7 @@ public class RegistroActivity extends AppCompatActivity {
         databaseReference.child(uId).setValue(datosusuario).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
+                progressDialog.dismiss();
                 Toast.makeText(RegistroActivity.this, "Usuario Creado Exitosamente", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(RegistroActivity.this, DashboardActivity.class));
                 finish();
@@ -137,7 +143,8 @@ public class RegistroActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(RegistroActivity.this, "Ocurrió un problema al guardar" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                Toast.makeText(RegistroActivity.this, "Ocurrió un problema al guardar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
