@@ -8,4 +8,9 @@
     </style>
 
     <style name="Theme.Gestion501" parent="Base.Theme.Gestion501" />
+
+    <style name="CircleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

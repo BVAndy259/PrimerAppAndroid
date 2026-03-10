@@ -38,4 +38,20 @@
     <string name="favoritos">Favoritos</string>
     <string name="mis_datos">Mis Datos</string>
     <string name="cerrar_sesión">Cerrar Sesión</string>
+
+    <!--Mis Datos-->
+    <string name="correo_md">Correo Usuario</string>
+    <string name="codigo_md">Código Usuario</string>
+    <string name="titulo_md">Mis Datos</string>
+    <string name="datos_md">Datos:</string>
+    <string name="leyenda_md">Todos los datos son requeridos: Nombre, Apellidos, Télefono</string>
+    <string name="nombre_md">Nombres</string>
+    <string name="apellido_md">Apellidos</string>
+    <string name="fecha_nacimiento">Fecha de Nacimiento</string>
+    <string name="edad_md">Edad</string>
+    <string name="telefono_md">Télefono</string>
+    <string name="domicilio_md">Domicilio</string>
+    <string name="tiktok_md">TikTok</string>
+    <string name="profesion_md">Profesión</string>
+    <string name="btn_guardar">Guardar</string>
 </resources>

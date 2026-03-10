@@ -34,10 +34,18 @@
                     android:textSize="40sp" />
 
                 <TextView
+                    android:id="@+id/tvNombreApellido"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Usuario Nombre:"
                     android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvCodigoU"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Codigo:"
+                    android:textColor="@color/white"/>
 
             </LinearLayout>
 
@@ -71,6 +79,7 @@
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cvEmpresa"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="20dp">
@@ -109,6 +118,7 @@
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cvGastos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="20dp">
@@ -156,6 +166,7 @@
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cvTareas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="20dp">
@@ -195,6 +206,7 @@
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cvListaTareas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="20dp">
@@ -242,6 +254,7 @@
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cvFavoritos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="20dp">
@@ -281,6 +294,7 @@
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cvMisDatos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="20dp">
@@ -321,6 +335,7 @@
             android:backgroundTint="@color/colorPrimary"/>
 
         <Button
+            android:id="@+id/btnDesarrollador"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/desarrollo"
