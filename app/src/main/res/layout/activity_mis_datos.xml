@@ -86,12 +86,12 @@
                     android:gravity="center">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="235dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/leyenda_md"
                         android:gravity="center"
                         android:padding="5dp"
-                        android:textSize="15sp"/>
+                        android:text="@string/leyenda_md"
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -122,19 +122,40 @@
                         android:hint="@string/apellido_md"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp">
+                    android:layout_marginTop="5sp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/etFechaNacMD"
-                        android:layout_width="match_parent"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="15sp"
-                        android:inputType="none"
-                        android:hint="@string/fecha_nacimiento"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/etFechaNacMD"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:hint="@string/fecha_nacimiento"
+                            android:inputType="none"
+                            android:padding="15sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/ivCakeDate"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="12dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/fecha_nacimiento"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_cake"
+                        app:tint="@color/colorPrimary" />
+                </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -150,19 +171,38 @@
                         android:hint="@string/edad_md"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5sp">
+                    android:layout_marginTop="5sp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/etTelefonoMD"
-                        android:layout_width="match_parent"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:padding="15sp"
-                        android:inputType="number"
-                        android:hint="@string/telefono_md"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/etTelefonoMD"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="15sp"
+                            android:inputType="number"
+                            android:hint="@string/telefono_md"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/ivPhone"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="12dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/telefono_md"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_phone"
+                        app:tint="@color/colorPrimary" />
+                </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"

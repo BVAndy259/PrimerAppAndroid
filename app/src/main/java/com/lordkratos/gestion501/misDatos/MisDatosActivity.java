@@ -1,7 +1,12 @@
 package com.lordkratos.gestion501.misDatos;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.inputmethod.InputMethodManager;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -20,11 +25,18 @@ import com.google.firebase.database.ValueEventListener;
 import com.lordkratos.gestion501.MainActivity;
 import com.lordkratos.gestion501.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class MisDatosActivity extends AppCompatActivity {
     private TextView tvCorreo, tvCodigo;
+    private EditText etFechaNac, etTelefono;
+    private ImageView ivCakeDate, ivPhone;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference Usuarios;
+    private final Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +51,20 @@ public class MisDatosActivity extends AppCompatActivity {
 
         tvCodigo = findViewById(R.id.tvCodigoMD);
         tvCorreo = findViewById(R.id.tvCorreoMD);
+        etFechaNac = findViewById(R.id.etFechaNacMD);
+        etTelefono = findViewById(R.id.etTelefonoMD);
+        ivCakeDate = findViewById(R.id.ivCakeDate);
+        ivPhone = findViewById(R.id.ivPhone);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         Usuarios = com.google.firebase.database.FirebaseDatabase.getInstance().getReference("Usuarios");
+
+        View.OnClickListener fechaClickListener = v -> mostrarDatePicker();
+        etFechaNac.setOnClickListener(fechaClickListener);
+        ivCakeDate.setOnClickListener(fechaClickListener);
+
+        ivPhone.setOnClickListener(v -> mostrarTeclado());
     }
 
     @Override
@@ -77,5 +99,33 @@ public class MisDatosActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void mostrarDatePicker() {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog dialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
+            calendar.set(selectedYear, selectedMonth, selectedDay);
+            etFechaNac.setText(formatearFecha());
+        }, year, month, day);
+
+        dialog.show();
+    }
+
+    private String formatearFecha() {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        return formato.format(calendar.getTime());
+    }
+
+    private void mostrarTeclado() {
+        etTelefono.requestFocus();
+        etTelefono.setSelection(etTelefono.getText().length());
+
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.showSoftInput(etTelefono, InputMethodManager.SHOW_IMPLICIT);
+        }
     }
 }
