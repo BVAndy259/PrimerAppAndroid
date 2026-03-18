@@ -1,9 +1,12 @@
 package com.lordkratos.gestion501;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +35,7 @@ import com.lordkratos.gestion501.tareas.TareasActivity;
 public class DashboardActivity extends AppCompatActivity {
     private Button btnCerrarSesion, btnDesarrollador;
     private CardView cvEmpresa, cvGastos, cvTareas, cvListaTareas, cvFavoritos, cvMisDatos;
+    private Dialog dialogDev;
     private TextView tvNombreApellido, tvCodigoU;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
@@ -60,6 +64,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
         btnDesarrollador = findViewById(R.id.btnDesarrollador);
+        dialogDev = new Dialog(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -70,6 +75,13 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 cerrarSesión();
+            }
+        });
+
+        btnDesarrollador.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                desarrollador();
             }
         });
 
@@ -116,7 +128,7 @@ public class DashboardActivity extends AppCompatActivity {
         cvMisDatos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(DashboardActivity.this, "Esto es Misa Datos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DashboardActivity.this, "Esto es Mis Datos", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(DashboardActivity.this, MisDatosActivity.class));
             }
         });
@@ -127,6 +139,55 @@ public class DashboardActivity extends AppCompatActivity {
         startActivity(new Intent(DashboardActivity.this, MainActivity.class));
         Toast.makeText(this, "Cerraste sesión exitosamente", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    private void desarrollador() {
+        TextView tvTelefono;
+        Button volver;
+        ImageButton github, youtube;
+
+        dialogDev.setContentView(R.layout.developer_dialog);
+        tvTelefono = dialogDev.findViewById(R.id.tvTelefono);
+        volver = dialogDev.findViewById(R.id.btnVolverDesarrollador);
+        github = dialogDev.findViewById(R.id.githubIcon);
+        youtube = dialogDev.findViewById(R.id.youtubeIcon);
+
+        tvTelefono.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String numero = "+51984373303";
+                Uri uri = Uri.parse("tel:" + numero);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        });
+
+        github.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String githubUrl = "https://github.com/BVAndy259";
+                Uri uri = Uri.parse(githubUrl);
+                startActivity(new Intent(Intent.ACTION_VIEW, uri));
+            }
+        });
+
+        youtube.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ytUrl = "https://www.youtube.com/@destructor_777";
+                Uri uri = Uri.parse(ytUrl);
+                startActivity(new Intent(Intent.ACTION_VIEW, uri));
+            }
+        });
+
+        volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogDev.dismiss();
+            }
+        });
+        dialogDev.show();
+        dialogDev.setCanceledOnTouchOutside(false);
     }
 
     @Override
