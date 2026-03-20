@@ -55,7 +55,6 @@ public class RegistroActivity extends AppCompatActivity {
         etconfirpassword = findViewById(R.id.etConfirmarPassword);
         btnRegistrar = findViewById(R.id.btnRegistrar);
 
-        // Generar Instancias respectivas
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(RegistroActivity.this);
         progressDialog.setTitle("Espere por favor...");

@@ -2,11 +2,15 @@ package com.lordkratos.gestion501;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +41,7 @@ public class DashboardActivity extends AppCompatActivity {
     private CardView cvEmpresa, cvGastos, cvTareas, cvListaTareas, cvFavoritos, cvMisDatos;
     private Dialog dialogDev;
     private TextView tvNombreApellido, tvCodigoU;
+    private ImageView ivFotoDashboard;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private DatabaseReference Usuarios;
@@ -61,6 +66,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         tvNombreApellido = findViewById(R.id.tvNombreApellido);
         tvCodigoU = findViewById(R.id.tvCodigoU);
+        ivFotoDashboard = findViewById(R.id.ivFotoDashboard);
 
         btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
         btnDesarrollador = findViewById(R.id.btnDesarrollador);
@@ -206,15 +212,37 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void cargarDatos() {
-        Usuarios.child(firebaseAuth.getUid()).addValueEventListener(new ValueEventListener() {
+        String uidActual = firebaseAuth.getUid();
+        if (uidActual == null || uidActual.isEmpty()) {
+            return;
+        }
+
+        Usuarios.child(uidActual).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     String uid = "" + snapshot.child("uid").getValue();
                     String nombre = "" + snapshot.child("nombre").getValue();
                     String apellido = "" + snapshot.child("apellido").getValue();
+                    String fotoBase64 = snapshot.child("fotoBase64").getValue(String.class);
                     tvNombreApellido.setText(nombre + " " + apellido);
                     tvCodigoU.setText(uid);
+
+                    if (fotoBase64 != null && !fotoBase64.isEmpty()) {
+                        try {
+                            byte[] imageBytes = Base64.decode(fotoBase64, Base64.DEFAULT);
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+                            if (bitmap != null) {
+                                ivFotoDashboard.setImageBitmap(bitmap);
+                            } else {
+                                ivFotoDashboard.setImageResource(R.drawable.bienv_1);
+                            }
+                        } catch (IllegalArgumentException e) {
+                            ivFotoDashboard.setImageResource(R.drawable.bienv_1);
+                        }
+                    } else {
+                        ivFotoDashboard.setImageResource(R.drawable.bienv_1);
+                    }
                 }
             }
 

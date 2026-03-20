@@ -25,12 +25,15 @@
                 android:src="@drawable/fondo_md_g" />
 
             <ImageView
+                android:id="@+id/ivFotoPerfilMD"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
-                android:src="@drawable/mc_md"
                 android:layout_marginTop="170dp"
                 android:layout_centerHorizontal="true"
+                android:clickable="true"
+                android:focusable="true"
                 android:scaleType="centerCrop"
+                android:src="@drawable/mc_md"
                 app:shapeAppearanceOverlay="@style/CircleImageView"/>
         </RelativeLayout>
         
@@ -244,7 +247,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btnGuardar"
+                android:id="@+id/btnGuardarMD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
