@@ -25,7 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.lordkratos.gestion501.ui.dashboard.DashboardActivity;
 import com.lordkratos.gestion501.R;
-import com.lordkratos.gestion501.ui.registro.RegistroActivity;
+import com.lordkratos.gestion501.ui.register.RegisterActivity;
 
 public class MainActivity extends AppCompatActivity {
     private Button btningresar;
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         tvRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, RegistroActivity.class));
+                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
             }
         });
 

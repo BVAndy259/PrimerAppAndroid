@@ -1,4 +1,4 @@
-package com.lordkratos.gestion501.clientes;
+package com.lordkratos.gestion501.customers;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,7 +43,7 @@ public class CustomerListActivity extends AppCompatActivity {
                     return;
                 }
 
-                Intent intent = new Intent(CustomerListActivity.this, AgregarClienteActivity.class);
+                Intent intent = new Intent(CustomerListActivity.this, AddCustomerActivity.class);
                 intent.putExtra("uid", currentUser.getUid());
                 startActivity(intent);
             }

@@ -30,12 +30,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lordkratos.gestion501.R;
-import com.lordkratos.gestion501.clientes.CustomerListActivity;
-import com.lordkratos.gestion501.ui.dashboard.favoritos.FavoritosActivity;
-import com.lordkratos.gestion501.ui.dashboard.gastos.GastosActivity;
-import com.lordkratos.gestion501.ui.dashboard.listaTareas.ListaTareasActivity;
-import com.lordkratos.gestion501.ui.dashboard.misDatos.MisDatosActivity;
-import com.lordkratos.gestion501.ui.dashboard.tareas.TareasActivity;
+import com.lordkratos.gestion501.customers.CustomerListActivity;
+import com.lordkratos.gestion501.ui.dashboard.favorites.FavoritesActivity;
+import com.lordkratos.gestion501.ui.dashboard.expenses.ExpensesActivity;
+import com.lordkratos.gestion501.ui.dashboard.taskList.TaskListActivity;
+import com.lordkratos.gestion501.ui.dashboard.myData.MyDataActivity;
+import com.lordkratos.gestion501.ui.dashboard.Tasks.TasksActivity;
 import com.lordkratos.gestion501.ui.main.MainActivity;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -114,7 +114,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(DashboardActivity.this, "Esto es Gastos", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(DashboardActivity.this, GastosActivity.class));
+                startActivity(new Intent(DashboardActivity.this, ExpensesActivity.class));
             }
         });
 
@@ -122,7 +122,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(DashboardActivity.this, "Esto es Tareas", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(DashboardActivity.this, TareasActivity.class));
+                startActivity(new Intent(DashboardActivity.this, TasksActivity.class));
             }
         });
 
@@ -130,7 +130,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(DashboardActivity.this, "Esto es Lista de Tareas", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(DashboardActivity.this, ListaTareasActivity.class));
+                startActivity(new Intent(DashboardActivity.this, TaskListActivity.class));
             }
         });
 
@@ -138,7 +138,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(DashboardActivity.this, "Esto es Favoritos", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(DashboardActivity.this, FavoritosActivity.class));
+                startActivity(new Intent(DashboardActivity.this, FavoritesActivity.class));
             }
         });
 
@@ -146,7 +146,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(DashboardActivity.this, "Esto es Mis Datos", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(DashboardActivity.this, MisDatosActivity.class));
+                startActivity(new Intent(DashboardActivity.this, MyDataActivity.class));
             }
         });
     }

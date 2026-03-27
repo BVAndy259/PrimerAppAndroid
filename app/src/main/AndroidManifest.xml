@@ -12,40 +12,40 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gestion501">
         <activity
-            android:name=".clientes.CustomerListActivity"
+            android:name=".customers.CustomerListActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".clientes.AgregarClienteActivity"
+            android:name=".customers.AddCustomerActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.dashboard.tareas.TareasActivity"
+            android:name=".ui.dashboard.Tasks.TasksActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.dashboard.misDatos.MisDatosActivity"
+            android:name=".ui.dashboard.myData.MyDataActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.dashboard.listaTareas.ListaTareasActivity"
+            android:name=".ui.dashboard.taskList.TaskListActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.dashboard.gastos.GastosActivity"
+            android:name=".ui.dashboard.expenses.ExpensesActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.dashboard.favoritos.FavoritosActivity"
+            android:name=".ui.dashboard.favorites.FavoritesActivity"
             android:exported="false" />
         <activity
             android:name=".ui.dashboard.empresa.EmpresaActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.registro.RegistroActivity"
+            android:name=".ui.register.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".ui.dashboard.DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.main.PrecargadoActivity"
+            android:name=".ui.main.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

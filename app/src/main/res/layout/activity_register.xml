@@ -7,7 +7,7 @@
     android:background="@drawable/back_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.registro.RegistroActivity">
+    tools:context=".ui.register.RegisterActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

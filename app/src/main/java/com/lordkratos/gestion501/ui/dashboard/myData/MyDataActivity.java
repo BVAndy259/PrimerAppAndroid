@@ -1,4 +1,4 @@
-package com.lordkratos.gestion501.ui.dashboard.misDatos;
+package com.lordkratos.gestion501.ui.dashboard.myData;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -47,7 +47,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 
-public class MisDatosActivity extends AppCompatActivity {
+public class MyDataActivity extends AppCompatActivity {
     private TextView tvCorreo, tvCodigo;
     private EditText etNombre, etApellido, etFechaNac, etEdad, etTelefono, etDomicilio, etTiktok, etProfesion;
     private ImageView ivCakeDate, ivPhone, ivFotoPerfilMD;
@@ -67,7 +67,7 @@ public class MisDatosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_mis_datos);
+        setContentView(R.layout.activity_my_data);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -226,7 +226,7 @@ public class MisDatosActivity extends AppCompatActivity {
         if (firebaseUser != null) {
             cargarDatos();
         } else {
-            startActivity(new Intent(MisDatosActivity.this, MainActivity.class));
+            startActivity(new Intent(MyDataActivity.this, MainActivity.class));
             finish();
         }
     }
@@ -286,7 +286,7 @@ public class MisDatosActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MisDatosActivity.this, "Error al cargar Datos: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyDataActivity.this, "Error al cargar Datos: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -381,7 +381,7 @@ public class MisDatosActivity extends AppCompatActivity {
         if (user == null) {
             progressDialog.dismiss();
             Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MisDatosActivity.this, MainActivity.class));
+            startActivity(new Intent(MyDataActivity.this, MainActivity.class));
             finish();
             return;
         }
@@ -418,15 +418,15 @@ public class MisDatosActivity extends AppCompatActivity {
             public void onSuccess(Void unused) {
                 fotoPendienteDeGuardar = false;
                 progressDialog.dismiss();
-                Toast.makeText(MisDatosActivity.this, "Datos Registrados Exitosamente", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MisDatosActivity.this, DashboardActivity.class));
+                Toast.makeText(MyDataActivity.this, "Datos Registrados Exitosamente", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MyDataActivity.this, DashboardActivity.class));
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 progressDialog.dismiss();
-                Toast.makeText(MisDatosActivity.this, "Error al Guardar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyDataActivity.this, "Error al Guardar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

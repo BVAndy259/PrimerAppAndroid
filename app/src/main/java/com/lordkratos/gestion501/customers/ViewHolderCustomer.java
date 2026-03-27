@@ -1,4 +1,4 @@
-package com.lordkratos.gestion501.clientes;
+package com.lordkratos.gestion501.customers;
 
 import android.content.Context;
 import android.view.View;
@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lordkratos.gestion501.R;
-public class ViewHolderCliente extends RecyclerView.ViewHolder {
+public class ViewHolderCustomer extends RecyclerView.ViewHolder {
     private View mView;
     private clickListener mClickListener;
 
@@ -17,11 +17,11 @@ public class ViewHolderCliente extends RecyclerView.ViewHolder {
         void onItemLongClick(View view, int position);
     }
 
-    public void setOnClickListener(ViewHolderCliente.clickListener clicklistener) {
+    public void setOnClickListener(ViewHolderCustomer.clickListener clicklistener) {
         mClickListener = clicklistener;
     }
 
-    public ViewHolderCliente(@NonNull View itemView) {
+    public ViewHolderCustomer(@NonNull View itemView) {
         super(itemView);
         mView = itemView;
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -45,9 +45,9 @@ public class ViewHolderCliente extends RecyclerView.ViewHolder {
         });
     }
 
-    public void setearDatosCliente(Context context, String client_id, String client_uid,
-                                   String names, String lastName, String email,
-                                   String dni, String direction, String phone_number){
+    public void setCustomerData(Context context, String client_id, String client_uid,
+                                String names, String lastName, String email,
+                                String dni, String direction, String phone_number){
 
         TextView tvClientIdI, tvClientUidI, tvNamesI, tvLastNameI, tvEmailI, tvDniI, tvDirectionI, tvPhoneNumberI;
 

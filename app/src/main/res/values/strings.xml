@@ -47,7 +47,7 @@
 
     <!--Dashboard-->
     <string name="bienvenido">Bienvenido</string>
-    <string name="cliente">Cliente</string>
+    <string name="customer">Cliente</string>
     <string name="gastos">Gastos</string>
     <string name="lista_tareas">Lista de Tareas</string>
     <string name="tareas">Tareas</string>
@@ -80,7 +80,7 @@
     <string name="dni_cliente_item">Dni</string>
     <string name="telefono_cliente_item">Telefono</string>
     <string name="direccion_cliente_Item">Direccion</string>
-    <!--agregar cliente-->
+    <!--agregar customer-->
     <string name="registrar_cli">Registrar Cliente</string>
     <string name="uid_usuario">Mi UID</string>
     <string name="nombre_cli">Nombres Clientes</string>

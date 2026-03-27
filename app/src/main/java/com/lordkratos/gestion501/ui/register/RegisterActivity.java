@@ -1,4 +1,4 @@
-package com.lordkratos.gestion501.ui.registro;
+package com.lordkratos.gestion501.ui.register;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -30,7 +30,7 @@ import com.lordkratos.gestion501.ui.main.MainActivity;
 
 import java.util.HashMap;
 
-public class RegistroActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
     private EditText etnombre, etapellido, etcorreo, etpassword, etconfirpassword;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
@@ -42,7 +42,7 @@ public class RegistroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_registro);
+        setContentView(R.layout.activity_register);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -59,14 +59,14 @@ public class RegistroActivity extends AppCompatActivity {
         btnRegistrar = findViewById(R.id.btnRegistrar);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        progressDialog = new ProgressDialog(RegistroActivity.this);
+        progressDialog = new ProgressDialog(RegisterActivity.this);
         progressDialog.setTitle("Espere por favor...");
         progressDialog.setCanceledOnTouchOutside(false);
 
         lblLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               startActivity(new Intent(RegistroActivity.this, MainActivity.class));
+               startActivity(new Intent(RegisterActivity.this, MainActivity.class));
             }
         });
 
@@ -116,7 +116,7 @@ public class RegistroActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
-                        Toast.makeText(RegistroActivity.this, "Ocurrió un problema, revisa los campos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Ocurrió un problema, revisa los campos", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -138,15 +138,15 @@ public class RegistroActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void unused) {
                 progressDialog.dismiss();
-                Toast.makeText(RegistroActivity.this, "Usuario Creado Exitosamente", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(RegistroActivity.this, DashboardActivity.class));
+                Toast.makeText(RegisterActivity.this, "Usuario Creado Exitosamente", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(RegisterActivity.this, DashboardActivity.class));
                 finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 progressDialog.dismiss();
-                Toast.makeText(RegistroActivity.this, "Ocurrió un problema al guardar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Ocurrió un problema al guardar: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

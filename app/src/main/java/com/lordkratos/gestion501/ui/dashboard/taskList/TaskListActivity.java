@@ -1,4 +1,4 @@
-package com.lordkratos.gestion501.ui.dashboard.gastos;
+package com.lordkratos.gestion501.ui.dashboard.taskList;
 
 import android.os.Bundle;
 
@@ -10,13 +10,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.lordkratos.gestion501.R;
 
-public class GastosActivity extends AppCompatActivity {
+public class TaskListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_gastos);
+        setContentView(R.layout.activity_tasks_list);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

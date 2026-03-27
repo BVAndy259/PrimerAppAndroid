@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.lordkratos.gestion501.ui.dashboard.DashboardActivity;
 import com.lordkratos.gestion501.R;
 
-public class PrecargadoActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -23,7 +23,7 @@ public class PrecargadoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         firebaseAuth = FirebaseAuth.getInstance();
-        setContentView(R.layout.activity_precargado);
+        setContentView(R.layout.activity_splash);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -42,10 +42,10 @@ public class PrecargadoActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         if (firebaseUser == null) {
-            startActivity(new Intent(PrecargadoActivity.this, MainActivity.class));
+            startActivity(new Intent(SplashActivity.this, MainActivity.class));
             finish();
         } else {
-            startActivity(new Intent(PrecargadoActivity.this, DashboardActivity.class));
+            startActivity(new Intent(SplashActivity.this, DashboardActivity.class));
             finish();
         }
 
