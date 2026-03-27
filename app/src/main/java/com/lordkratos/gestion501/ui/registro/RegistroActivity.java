@@ -1,4 +1,4 @@
-package com.lordkratos.gestion501;
+package com.lordkratos.gestion501.ui.registro;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -24,6 +24,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.lordkratos.gestion501.ui.dashboard.DashboardActivity;
+import com.lordkratos.gestion501.R;
+import com.lordkratos.gestion501.ui.main.MainActivity;
 
 import java.util.HashMap;
 

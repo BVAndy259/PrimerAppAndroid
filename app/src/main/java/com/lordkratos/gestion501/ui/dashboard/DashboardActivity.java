@@ -1,4 +1,4 @@
-package com.lordkratos.gestion501;
+package com.lordkratos.gestion501.ui.dashboard;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -29,16 +29,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.lordkratos.gestion501.empresa.EmpresaActivity;
-import com.lordkratos.gestion501.favoritos.FavoritosActivity;
-import com.lordkratos.gestion501.gastos.GastosActivity;
-import com.lordkratos.gestion501.listaTareas.ListaTareasActivity;
-import com.lordkratos.gestion501.misDatos.MisDatosActivity;
-import com.lordkratos.gestion501.tareas.TareasActivity;
+import com.lordkratos.gestion501.R;
+import com.lordkratos.gestion501.clientes.CustomerListActivity;
+import com.lordkratos.gestion501.ui.dashboard.favoritos.FavoritosActivity;
+import com.lordkratos.gestion501.ui.dashboard.gastos.GastosActivity;
+import com.lordkratos.gestion501.ui.dashboard.listaTareas.ListaTareasActivity;
+import com.lordkratos.gestion501.ui.dashboard.misDatos.MisDatosActivity;
+import com.lordkratos.gestion501.ui.dashboard.tareas.TareasActivity;
+import com.lordkratos.gestion501.ui.main.MainActivity;
 
 public class DashboardActivity extends AppCompatActivity {
     private Button btnCerrarSesion, btnDesarrollador;
-    private CardView cvEmpresa, cvGastos, cvTareas, cvListaTareas, cvFavoritos, cvMisDatos;
+    private CardView cvClient, cvGastos, cvTareas, cvListaTareas, cvFavoritos, cvMisDatos;
     private Dialog dialogDev;
     private TextView tvNombreApellido, tvCodigoU;
     private ImageView ivFotoDashboard;
@@ -57,7 +59,7 @@ public class DashboardActivity extends AppCompatActivity {
             return insets;
         });
 
-        cvEmpresa = findViewById(R.id.cvEmpresa);
+        cvClient = findViewById(R.id.cvClient);
         cvGastos = findViewById(R.id.cvGastos);
         cvTareas = findViewById(R.id.cvTareas);
         cvListaTareas = findViewById(R.id.cvListaTareas);
@@ -91,11 +93,20 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        cvEmpresa.setOnClickListener(new View.OnClickListener() {
+        cvClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(DashboardActivity.this, "Esto es Empresa", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(DashboardActivity.this, EmpresaActivity.class));
+                FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+                if (currentUser == null) {
+                    Toast.makeText(DashboardActivity.this, "Sesion expirada, vuelve a iniciar sesion", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(DashboardActivity.this, MainActivity.class));
+                    finish();
+                    return;
+                }
+
+                Intent intent = new Intent(DashboardActivity.this, CustomerListActivity.class);
+                intent.putExtra("uid", currentUser.getUid());
+                startActivity(intent);
             }
         });
 
@@ -152,7 +163,7 @@ public class DashboardActivity extends AppCompatActivity {
         Button volver;
         ImageButton github, youtube;
 
-        dialogDev.setContentView(R.layout.developer_dialog);
+        dialogDev.setContentView(R.layout.dialog_developer);
         tvTelefono = dialogDev.findViewById(R.id.tvTelefono);
         volver = dialogDev.findViewById(R.id.btnVolverDesarrollador);
         github = dialogDev.findViewById(R.id.githubIcon);

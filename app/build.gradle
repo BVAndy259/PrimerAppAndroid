@@ -41,7 +41,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:22.1.2'
     // Librería para la base de datos en tiempo real
     implementation 'com.google.firebase:firebase-database:20.2.2'
-    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.25'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.29'
     implementation libs.activity
     implementation libs.constraintlayout
     testImplementation libs.junit

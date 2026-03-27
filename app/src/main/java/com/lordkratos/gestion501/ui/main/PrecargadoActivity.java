@@ -1,4 +1,4 @@
-package com.lordkratos.gestion501;
+package com.lordkratos.gestion501.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.lordkratos.gestion501.ui.dashboard.DashboardActivity;
+import com.lordkratos.gestion501.R;
 
 public class PrecargadoActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;

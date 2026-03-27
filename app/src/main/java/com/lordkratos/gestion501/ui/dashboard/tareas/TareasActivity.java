@@ -1,4 +1,4 @@
-package com.lordkratos.gestion501.listaTareas;
+package com.lordkratos.gestion501.ui.dashboard.tareas;
 
 import android.os.Bundle;
 
@@ -10,13 +10,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.lordkratos.gestion501.R;
 
-public class ListaTareasActivity extends AppCompatActivity {
+public class TareasActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_lista_tareas);
+        setContentView(R.layout.activity_tareas);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back_3"
-    tools:context=".misDatos.MisDatosActivity">
+    tools:context=".ui.dashboard.misDatos.MisDatosActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"

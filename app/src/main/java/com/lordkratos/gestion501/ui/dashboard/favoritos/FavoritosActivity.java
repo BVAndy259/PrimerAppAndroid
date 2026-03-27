@@ -1,4 +1,4 @@
-package com.lordkratos.gestion501.favoritos;
+package com.lordkratos.gestion501.ui.dashboard.favoritos;
 
 import android.os.Bundle;
 

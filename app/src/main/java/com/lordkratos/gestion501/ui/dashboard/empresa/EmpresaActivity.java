@@ -1,4 +1,4 @@
-package com.lordkratos.gestion501.gastos;
+package com.lordkratos.gestion501.ui.dashboard.empresa;
 
 import android.os.Bundle;
 
@@ -10,13 +10,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.lordkratos.gestion501.R;
 
-public class GastosActivity extends AppCompatActivity {
+public class EmpresaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_gastos);
+        setContentView(R.layout.activity_empresa);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

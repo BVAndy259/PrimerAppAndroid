@@ -12,31 +12,40 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Gestion501">
         <activity
-            android:name=".tareas.TareasActivity"
+            android:name=".clientes.CustomerListActivity"
             android:exported="false" />
         <activity
-            android:name=".misDatos.MisDatosActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".listaTareas.ListaTareasActivity"
+            android:name=".clientes.AgregarClienteActivity"
             android:exported="false" />
         <activity
-            android:name=".gastos.GastosActivity"
+            android:name=".ui.dashboard.tareas.TareasActivity"
             android:exported="false" />
         <activity
-            android:name=".favoritos.FavoritosActivity"
+            android:name=".ui.dashboard.misDatos.MisDatosActivity"
             android:exported="false" />
         <activity
-            android:name=".empresa.EmpresaActivity"
+            android:name=".ui.dashboard.listaTareas.ListaTareasActivity"
             android:exported="false" />
         <activity
-            android:name=".RegistroActivity"
+            android:name=".ui.dashboard.gastos.GastosActivity"
             android:exported="false" />
         <activity
-            android:name=".DashboardActivity"
+            android:name=".ui.dashboard.favoritos.FavoritosActivity"
             android:exported="false" />
         <activity
-            android:name=".PrecargadoActivity"
+            android:name=".ui.dashboard.empresa.EmpresaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.registro.RegistroActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.dashboard.DashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.PrecargadoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,7 +54,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
