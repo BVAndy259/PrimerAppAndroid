@@ -177,11 +177,33 @@ public class CustomerListActivity extends AppCompatActivity {
             return true;
         }
 
-        return containsIgnoreCase(customer.getNames(), search);
+        if (containsIgnoreCase(customer.getNames(), search)) {
+            return true;
+        }
+
+        if (containsIgnoreCase(customer.getLastName(), search)) {
+            return true;
+        }
+
+        String fullName = (safe(customer.getNames()) + " " + safe(customer.getLastName())).trim();
+        if (containsIgnoreCase(fullName, search)) {
+            return true;
+        }
+
+        String phoneDigits = digitsOnly(customer.getPhoneNumber());
+        String searchDigits = digitsOnly(search);
+        return !searchDigits.isEmpty() && phoneDigits.contains(searchDigits);
     }
 
     private boolean containsIgnoreCase(String value, @NonNull String search) {
         return value != null && value.toLowerCase(Locale.ROOT).contains(search);
+    }
+
+    private String digitsOnly(String value) {
+        if (value == null || value.isEmpty()) {
+            return "";
+        }
+        return value.replaceAll("\\D+", "");
     }
 
     private Customer parseCustomerSnapshot(@NonNull DataSnapshot snapshot) {
