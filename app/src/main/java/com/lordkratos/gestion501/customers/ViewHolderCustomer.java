@@ -1,7 +1,11 @@
 package com.lordkratos.gestion501.customers;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,9 +51,10 @@ public class ViewHolderCustomer extends RecyclerView.ViewHolder {
 
     public void setCustomerData(Context context, String client_id, String client_uid,
                                 String names, String lastName, String email,
-                                String dni, String direction, String phone_number){
+                                String dni, String direction, String phone_number, String base64Image){
 
         TextView tvClientIdI, tvClientUidI, tvNamesI, tvLastNameI, tvEmailI, tvDniI, tvDirectionI, tvPhoneNumberI;
+        ImageView ivClienteFotoI;
 
         tvClientIdI = mView.findViewById(R.id.tvClientIdI);
         tvClientUidI = mView.findViewById(R.id.tvClientUidI);
@@ -59,6 +64,7 @@ public class ViewHolderCustomer extends RecyclerView.ViewHolder {
         tvDniI = mView.findViewById(R.id.tvDniI);
         tvDirectionI = mView.findViewById(R.id.tvDirectionI);
         tvPhoneNumberI = mView.findViewById(R.id.tvPhoneNumberI);
+        ivClienteFotoI = mView.findViewById(R.id.ivClienteFotoI);
 
         tvClientIdI.setText(client_id);
         tvClientUidI.setText(client_uid);
@@ -68,5 +74,22 @@ public class ViewHolderCustomer extends RecyclerView.ViewHolder {
         tvDniI.setText(dni);
         tvDirectionI.setText(direction);
         tvPhoneNumberI.setText(phone_number);
+
+        if (base64Image == null || base64Image.trim().isEmpty()) {
+            ivClienteFotoI.setImageResource(R.drawable.info);
+            return;
+        }
+
+        try {
+            byte[] decodedBytes = Base64.decode(base64Image, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+            if (bitmap != null) {
+                ivClienteFotoI.setImageBitmap(bitmap);
+            } else {
+                ivClienteFotoI.setImageResource(R.drawable.info);
+            }
+        } catch (IllegalArgumentException e) {
+            ivClienteFotoI.setImageResource(R.drawable.info);
+        }
     }
 }

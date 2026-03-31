@@ -80,6 +80,8 @@
     <string name="dni_cliente_item">Dni</string>
     <string name="telefono_cliente_item">Telefono</string>
     <string name="direccion_cliente_Item">Direccion</string>
+    <string name="search">Buscar por nombre</string>
+
     <!--agregar customer-->
     <string name="registrar_cli">Registrar Cliente</string>
     <string name="uid_usuario">Mi UID</string>
@@ -89,6 +91,12 @@
     <string name="dni_cli">DNI</string>
     <string name="telefon_cli">Telefono</string>
     <string name="direccion_cli">Direccion</string>
+    <string name="select_image">Seleccionar imagen</string>
+    <string name="take_photo">Tomar foto</string>
+    <string name="image_processing">Procesando imagen...</string>
+    <string name="select_customer_image">Imagen del cliente</string>
+    <string name="image_selected">Imagen seleccionada</string>
+    <string name="image_process_error">No se pudo procesar la imagen</string>
     <!--CUADROS DE DIALOGO-->
     <string name="titulo_val_cli">Aviso del Aplicativo</string>
     <string name="desc_val_cli">Debe de ingresar como minimo el Nombre del Cliente. Gracias!</string>

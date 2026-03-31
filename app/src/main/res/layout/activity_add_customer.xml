@@ -32,15 +32,33 @@
             android:textSize="25sp"
             android:gravity="center"/>
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_marginTop="15dp"
-            app:lottie_imageAssetsFolder="assets"
-            app:lottie_fileName="plataforma.json"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            android:layout_gravity="center"/>
+        <ImageView
+            android:id="@+id/ivCustomerPhotoI"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@drawable/info"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/select_customer_image"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <Button
+            android:id="@+id/btnSelectImageI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@string/select_image"/>
+
+        <Button
+            android:id="@+id/btnTakePhotoI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:text="@string/take_photo"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -48,7 +66,7 @@
             android:layout_marginTop="15dp">
 
             <EditText
-                android:id="@+id/etNombresI"
+                android:id="@+id/etNamesI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/nombre_cli"
@@ -64,7 +82,7 @@
             android:layout_marginTop="15dp">
 
             <EditText
-                android:id="@+id/etApellidosI"
+                android:id="@+id/etLastNameI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/apellidos_cli"
@@ -80,7 +98,7 @@
             android:layout_marginTop="15dp">
 
             <EditText
-                android:id="@+id/etCorreoI"
+                android:id="@+id/etEmailI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/correo_cli"
@@ -112,7 +130,7 @@
             android:layout_marginTop="15dp">
 
             <EditText
-                android:id="@+id/etTelefonoI"
+                android:id="@+id/etPhoneNumberI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/telefon_cli"
@@ -128,7 +146,7 @@
             android:layout_marginTop="15dp">
 
             <EditText
-                android:id="@+id/etDireccionI"
+                android:id="@+id/etAddressI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/direccion_cli"
@@ -139,7 +157,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btnGuardarI"
+            android:id="@+id/btnSaveI"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/guardar"

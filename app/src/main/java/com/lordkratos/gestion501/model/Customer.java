@@ -9,10 +9,11 @@ public class Customer {
     private String phoneNumber;
     private String dni;
     private String direction;
+    private String base64Image;
 
     public Customer() {}
 
-    public Customer(String customerId, String customerUid, String names, String lastName, String email, String phoneNumber, String dni, String direction) {
+    public Customer(String customerId, String customerUid, String names, String lastName, String email, String phoneNumber, String dni, String direction, String base64Image) {
         this.customerId = customerId;
         this.customerUid = customerUid;
         this.names = names;
@@ -21,6 +22,7 @@ public class Customer {
         this.phoneNumber = phoneNumber;
         this.dni = dni;
         this.direction = direction;
+        this.base64Image = base64Image;
     }
 
     public String getCustomerId() {
@@ -85,5 +87,13 @@ public class Customer {
 
     public void setDirection(String direction) {
         this.direction = direction;
+    }
+
+    public String getBase64Image() {
+        return base64Image;
+    }
+
+    public void setBase64Image(String base64Image) {
+        this.base64Image = base64Image;
     }
 }
