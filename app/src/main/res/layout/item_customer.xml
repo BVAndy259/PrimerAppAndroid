@@ -33,53 +33,65 @@
                 android:id="@+id/tvClientIdI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="@string/id_cliente_item"
                 android:layout_marginTop="5dp"/>
             <TextView
                 android:id="@+id/tvClientUidI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="@string/uid_cliente"
                 android:layout_marginTop="5dp"/>
             <TextView
                 android:id="@+id/tvNameI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18sp"
                 android:text="@string/nombre_cliente_item"
                 android:layout_marginTop="5dp"/>
             <TextView
                 android:id="@+id/tvLastNameI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18sp"
                 android:text="@string/apellido_cliente_item"
                 android:layout_marginTop="5dp"/>
             <TextView
                 android:id="@+id/tvEmailI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="@string/correo_cliente_item"
                 android:layout_marginTop="5dp"/>
             <TextView
                 android:id="@+id/tvDniI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="@string/dni_cliente_item"
                 android:layout_marginTop="5dp"/>
             <TextView
                 android:id="@+id/tvPhoneNumberI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="18sp"
                 android:text="@string/telefono_cliente_item"
                 android:layout_marginTop="5dp"/>
             <TextView
                 android:id="@+id/tvDirectionI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="@string/direccion_cliente_Item"
                 android:layout_marginTop="5dp"/>
 
-
         </androidx.appcompat.widget.LinearLayoutCompat>
-
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.cardview.widget.CardView>

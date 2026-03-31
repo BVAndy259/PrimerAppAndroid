@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:21.3.0'
     // Librería para la autenticación
     implementation 'com.google.firebase:firebase-auth:22.1.2'
+    implementation 'com.firebaseui:firebase-ui-database:8.0.0'
     // Librería para la base de datos en tiempo real
     implementation 'com.google.firebase:firebase-database:20.2.2'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.29'
