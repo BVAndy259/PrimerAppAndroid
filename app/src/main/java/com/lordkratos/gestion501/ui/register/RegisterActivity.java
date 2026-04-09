@@ -34,9 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etnombre, etapellido, etcorreo, etpassword, etconfirpassword;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
-    private TextView lblLogin;
-    private Button btnRegistrar;
-    private String nombre = "", apellido = "", correo = "", password = "", confirpassword = "";
+    private String nombre = "", apellido = "", correo = "", password = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +47,14 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
 
-        lblLogin = findViewById(R.id.lblIrLogin);
+        TextView lblLogin = findViewById(R.id.lblIrLogin);
 
         etnombre = findViewById(R.id.etNombre);
         etapellido = findViewById(R.id.etApellido);
         etcorreo = findViewById(R.id.etCorreo);
         etpassword = findViewById(R.id.etPassword);
         etconfirpassword = findViewById(R.id.etConfirmarPassword);
-        btnRegistrar = findViewById(R.id.btnRegistrar);
+        Button btnRegistrar = findViewById(R.id.btnRegistrar);
 
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(RegisterActivity.this);
@@ -83,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
         apellido = etapellido.getText().toString().trim();
         correo = etcorreo.getText().toString().trim();
         password = etpassword.getText().toString().trim();
-        confirpassword = etconfirpassword.getText().toString().trim();
+        String confirpassword = etconfirpassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(nombre)) {
             Toast.makeText(this, "El campo nombre está vacío", Toast.LENGTH_SHORT).show();

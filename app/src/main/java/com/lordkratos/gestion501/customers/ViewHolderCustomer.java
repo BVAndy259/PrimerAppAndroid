@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lordkratos.gestion501.R;
 public class ViewHolderCustomer extends RecyclerView.ViewHolder {
-    private View mView;
+    private final View mView;
     private clickListener mClickListener;
 
     public interface clickListener {

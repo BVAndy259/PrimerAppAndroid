@@ -39,8 +39,6 @@ import com.lordkratos.gestion501.ui.dashboard.Tasks.TasksActivity;
 import com.lordkratos.gestion501.ui.main.MainActivity;
 
 public class DashboardActivity extends AppCompatActivity {
-    private Button btnCerrarSesion, btnDesarrollador;
-    private CardView cvClient, cvGastos, cvTareas, cvListaTareas, cvFavoritos, cvMisDatos;
     private Dialog dialogDev;
     private TextView tvNombreApellido, tvCodigoU;
     private ImageView ivFotoDashboard;
@@ -59,19 +57,19 @@ public class DashboardActivity extends AppCompatActivity {
             return insets;
         });
 
-        cvClient = findViewById(R.id.cvClient);
-        cvGastos = findViewById(R.id.cvGastos);
-        cvTareas = findViewById(R.id.cvTareas);
-        cvListaTareas = findViewById(R.id.cvListaTareas);
-        cvFavoritos = findViewById(R.id.cvFavoritos);
-        cvMisDatos = findViewById(R.id.cvMisDatos);
+        CardView cvClient = findViewById(R.id.cvClient);
+        CardView cvGastos = findViewById(R.id.cvGastos);
+        CardView cvTareas = findViewById(R.id.cvTareas);
+        CardView cvListaTareas = findViewById(R.id.cvListaTareas);
+        CardView cvFavoritos = findViewById(R.id.cvFavoritos);
+        CardView cvMisDatos = findViewById(R.id.cvMisDatos);
 
         tvNombreApellido = findViewById(R.id.tvNombreApellido);
         tvCodigoU = findViewById(R.id.tvCodigoU);
         ivFotoDashboard = findViewById(R.id.ivFotoDashboard);
 
-        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
-        btnDesarrollador = findViewById(R.id.btnDesarrollador);
+        Button btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
+        Button btnDesarrollador = findViewById(R.id.btnDesarrollador);
         dialogDev = new Dialog(this);
 
         firebaseAuth = FirebaseAuth.getInstance();

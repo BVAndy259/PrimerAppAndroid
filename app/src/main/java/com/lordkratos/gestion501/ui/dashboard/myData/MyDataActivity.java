@@ -50,8 +50,7 @@ import java.util.Locale;
 public class MyDataActivity extends AppCompatActivity {
     private TextView tvCorreo, tvCodigo;
     private EditText etNombre, etApellido, etFechaNac, etEdad, etTelefono, etDomicilio, etTiktok, etProfesion;
-    private ImageView ivCakeDate, ivPhone, ivFotoPerfilMD;
-    private Button btnRegistrar;
+    private ImageView ivFotoPerfilMD;
     private String nombre = "", apellido = "", fechaNac = "", edad = "", telefono = "", domicilio = "", tiktok = "", profesion = "";
     private String fotoBase64 = "";
     private FirebaseAuth firebaseAuth;
@@ -90,9 +89,9 @@ public class MyDataActivity extends AppCompatActivity {
         etTiktok = findViewById(R.id.etTiktokMD);
         etProfesion = findViewById(R.id.etProfesionMD);
         ivFotoPerfilMD = findViewById(R.id.ivFotoPerfilMD);
-        ivCakeDate = findViewById(R.id.ivCakeDate);
-        ivPhone = findViewById(R.id.ivPhone);
-        btnRegistrar = findViewById(R.id.btnGuardarMD);
+        ImageView ivCakeDate = findViewById(R.id.ivCakeDate);
+        ImageView ivPhone = findViewById(R.id.ivPhone);
+        Button btnRegistrar = findViewById(R.id.btnGuardarMD);
 
         calendar = Calendar.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();

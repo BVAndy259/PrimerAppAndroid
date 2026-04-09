@@ -28,8 +28,6 @@ import com.lordkratos.gestion501.R;
 import com.lordkratos.gestion501.ui.register.RegisterActivity;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btningresar;
-    private TextView tvRegistro;
     private EditText etcorreol, etpasswordl;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
@@ -46,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        tvRegistro = findViewById(R.id.tvirregistro);
-        btningresar = findViewById(R.id.btningresar);
+        TextView tvRegistro = findViewById(R.id.tvirregistro);
+        Button btningresar = findViewById(R.id.btningresar);
         etcorreol = findViewById(R.id.etcorreol);
         etpasswordl = findViewById(R.id.etpasswordl);
         firebaseAuth = FirebaseAuth.getInstance();

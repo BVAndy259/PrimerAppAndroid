@@ -1,5 +1,6 @@
 package com.lordkratos.gestion501.customers;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -37,12 +38,9 @@ import java.util.Locale;
 
 public class CustomerListActivity extends AppCompatActivity {
     private static final String TAG = "CustomerListActivity";
-    private RecyclerView recyclerViewCustomers;
     private DatabaseReference databaseReference;
     private FirebaseUser firebaseUser;
-    private FloatingActionButton btnAddCustomer;
     private TextInputEditText etSearchCustomer;
-
     private final List<Customer> allCustomers = new ArrayList<>();
     private final List<Customer> filteredCustomers = new ArrayList<>();
     private ValueEventListener customersListener;
@@ -62,7 +60,7 @@ public class CustomerListActivity extends AppCompatActivity {
 
         etSearchCustomer = findViewById(R.id.etSearchCustomer);
 
-        recyclerViewCustomers = findViewById(R.id.recyclerviewCustomer);
+        RecyclerView recyclerViewCustomers = findViewById(R.id.recyclerviewCustomer);
         recyclerViewCustomers.setHasFixedSize(true);
         recyclerViewCustomers.setLayoutManager(new GridLayoutManager(CustomerListActivity.this, 2));
         customerAdapter = new CustomerAdapter();
@@ -80,7 +78,7 @@ public class CustomerListActivity extends AppCompatActivity {
         setupCustomerListener();
         setupSearchCustomer();
 
-        btnAddCustomer = findViewById(R.id.btnAddCustomer);
+        FloatingActionButton btnAddCustomer = findViewById(R.id.btnAddCustomer);
         btnAddCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,6 +156,7 @@ public class CustomerListActivity extends AppCompatActivity {
         applyCurrentFilter();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void applyCurrentFilter() {
         filteredCustomers.clear();
         if (currentSearchText.isEmpty()) {

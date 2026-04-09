@@ -37,7 +37,6 @@ import java.util.concurrent.Executors;
 public class AddCustomerActivity extends AppCompatActivity {
     private TextView tvCodUserI;
     private EditText etNamesI, etLastNameI, etEmailI, etDniI, etPhoneNumberI, etDirectionI;
-    private Button btnSaveI, btnSelectImageI, btnTakePhotoI;
     private ImageView ivCustomerPhotoI;
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
@@ -69,15 +68,15 @@ public class AddCustomerActivity extends AppCompatActivity {
     private void initializeComponents() {
         tvCodUserI = findViewById(R.id.tvUidI);
         ivCustomerPhotoI = findViewById(R.id.ivCustomerPhotoI);
-        btnSelectImageI = findViewById(R.id.btnSelectImageI);
-        btnTakePhotoI = findViewById(R.id.btnTakePhotoI);
+        Button btnSelectImageI = findViewById(R.id.btnSelectImageI);
+        Button btnTakePhotoI = findViewById(R.id.btnTakePhotoI);
         etNamesI = findViewById(R.id.etNamesI);
         etLastNameI = findViewById(R.id.etLastNameI);
         etEmailI = findViewById(R.id.etEmailI);
         etDniI = findViewById(R.id.etDniI);
         etPhoneNumberI = findViewById(R.id.etPhoneNumberI);
         etDirectionI = findViewById(R.id.etAddressI);
-        btnSaveI = findViewById(R.id.btnSaveI);
+        Button btnSaveI = findViewById(R.id.btnSaveI);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
         firebaseAuth = FirebaseAuth.getInstance();
